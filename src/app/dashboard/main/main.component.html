@@ -1,0 +1,104 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Dashboard</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/dashboard/main">
+                <i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Widgets -->
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+          <div class="text font-17 m-b-5">Số lượng khách hiện tại</div>
+          <h3 class="m-b-10">
+            758
+            <i class="material-icons col-green">trending_up</i>
+          </h3>
+          <div class="icon">
+            <div class="chart chart-bar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+          <div class="text font-17 m-b-5">Tổng lượng khách trong 24 giờ</div>
+          <h3 class="m-b-10">
+            1025
+            <i class="material-icons col-red">trending_down</i>
+          </h3>
+          <div class="icon">
+            <span class="chart chart-line"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+          <div class="text font-17 m-b-5">Độ tuổi khách hàng trung bình</div>
+          <h3 class="m-b-10">
+            27
+            <i class="material-icons col-green">trending_up</i>
+          </h3>
+          <div class="icon">
+            <div class="chart chart-pie"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="counter-box text-center white">
+          <div class="text font-17 m-b-5">Tỉ lệ chuyển đổi mua hàng 24h</div>
+          <h3 class="m-b-10">
+            214
+            <i class="material-icons col-red">trending_down</i>
+          </h3>
+          <div class="icon">
+            <div class="chart" id="liveChart">Loading..</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Widgets -->
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              <strong>Lưu lượng khách hàng</strong>
+            </h2>
+          </div>
+          <div class="body">
+            <div class="card">
+              <!-- Canvas for Chart.js -->
+              <div id="chartReport1"></div>
+              <!-- Custom Axis -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Giới tính</strong></h2>
+          </div>
+          <div class="body">
+            <div class="card">
+              <!-- Canvas for Chart.js -->
+              <canvas id="chartReport2"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

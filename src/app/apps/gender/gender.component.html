@@ -1,0 +1,60 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Compose</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/dashboard/main">
+                <i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="breadcrumb-item active">Giới tính</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12" style="background:white; padding: 20px">
+        <h4>Tỉ lệ nam nữ</h4>
+        <canvas id="sexProportion"></canvas>
+      </div>
+      <div class="col-md-6 col-sm-12" style="background:white; padding:20px">
+        <h4>Số lượng nam nữ theo tháng</h4>
+        <canvas id="sexProportionMonth"></canvas>
+      </div>
+      <div class="row clearfix col-12">
+        <div class="col-12">
+          <div class="card">
+            <div class="header">
+              <h4>Số lượng nam nữ chi tiết</h4>
+            </div>
+            <div class="body table-responsive col-12 mt-4">
+              <table class="table table-striped ">
+                <thead>
+                  <tr>
+                    <th>Giới tính</th>
+                    <th>Số lượng</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr>
+                    <td>Nam</td>
+                    <td>100</td>
+                  </tr>
+                  <tr>
+                    <td>Nữ</td>
+                    <td>126</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Events</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/dashboard/main">
+                <i class="fas fa-home"></i> Home</a
+              >
+            </li>
+            <li class="breadcrumb-item active">Tổng lưu lượng</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div>
+          <h2>Lưu lượng khách hiện tại</h2>
+          <div class="pull-right">
+            <div class="switch panel-switch-btn">
+              <span class="m-r-10 font-12">REAL TIME</span>
+              <label
+                >OFF
+                <input type="checkbox" id="realtime" checked />
+                <span class="lever switch-col-cyan"></span>ON</label
+              >
+            </div>
+          </div>
+          <div
+            id="real_time_customer"
+            class="flot-chart"
+            style="margin-top: 15px"
+          ></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 mt-4" style="background:white">
+            <h4 class="mt-2">Lưu lượng khách theo ngày</h4>
+            <div id="bar_chart_day" class="flot-chart"></div>
+          </div>
+          <div class="col-md-6 col-sm-12" style="background:white">
+            <h4 class="mt-2">Lưu lượng khách theo giờ trong ngày</h4>
+            <div id="hour_distribution"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
