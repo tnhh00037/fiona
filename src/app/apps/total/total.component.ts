@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 declare const $: any;
 declare const jQuery: any;
 declare const ApexCharts: any;
+declare const Chart: any;
 
 @Component({
   selector: "app-total",
@@ -69,26 +70,57 @@ export class TotalComponent implements OnInit {
         barChartData.push([i, parseInt(Math.random() * 30 + "")]);
       }
 
-      $.plot("#bar_chart_day", [barChartData], {
-        series: {
-          stack: 0,
-          lines: {
-            show: false,
-            fill: true,
-            steps: false
-          },
-          bars: {
-            show: true,
-            barWidth: 0.6
-          },
-          color: "#00BCD4"
+      // $.plot("#bar_chart_day", [barChartData], {
+      //   series: {
+      //     stack: 0,
+      //     lines: {
+      //       show: false,
+      //       fill: true,
+      //       steps: false
+      //     },
+      //     bars: {
+      //       show: true,
+      //       barWidth: 0.6
+      //     },
+      //     color: "#00BCD4"
+      //   },
+      //   grid: {
+      //     hoverable: true,
+      //     autoHighlight: false,
+      //     borderColor: "#f3f3f3",
+      //     borderWidth: 1,
+      //     tickColor: "#f3f3f3"
+      //   },
+      //   xaxis: {
+      //     categories: [
+      //       "01 Jan",
+      //       "02 Jan",
+      //       "03 Jan",
+      //       "04 Jan",
+      //       "05 Jan",
+      //       "06 Jan",
+      //       "01 Jan",
+      //       "01 Jan",
+      //       "01 Jan",
+      //       "01 Jan",
+      //       "01 Jan"
+      //     ]
+      //   }
+      // });
+      new Chart(document.getElementById("bar_chart_day"), {
+        type: "bar",
+        data: {
+          labels: ["1-7", "2-7", "3-7", "4-7", "5-7"],
+          datasets: [
+            {
+              label: "Amount of people",
+              backgroundColor: "#00BCD4",
+              data: [400, 600, 700, 300, 550]
+            }
+          ]
         },
-        grid: {
-          hoverable: true,
-          autoHighlight: false,
-          borderColor: "#f3f3f3",
-          borderWidth: 1,
-          tickColor: "#f3f3f3"
+        options: {
+          legend: { display: false }
         }
       });
       //============================================================================================
