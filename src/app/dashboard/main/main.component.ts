@@ -106,88 +106,7 @@ export class MainComponent implements OnInit {
 			// We could use setInterval instead, but I prefer to do it this way
 			setTimeout(mdraw, mrefreshinterval);
 		}
-		function initChartReport1() {
-			// var char = <HTMLCanvasElement>document.getElementById("chartReport1");
-
-
-			// var config = {
-			// 	type: 'bar',
-			// 	stacked:'true',
-			// 	data: {
-			// 		labels: ["19", "20", "21", "22", "23", "24", "25"],
-			// 		datasets: [
-			// 			{
-			// 				label: 'Organic search',
-			// 				data: [20, 25, 30, 23, 28, 25, 26],
-			// 				backgroundColor: gradientThisWeek,
-			// 				borderCoor: 'transparent',
-			// 				pointBackgroundColor: '#FFFFFF',
-			// 				pointBorderColor: '#FFFFFF',
-			// 				lineTension: 0.40,
-			// 			},
-			// 			{
-			// 				label: 'Social',
-			// 				data: [20, 22, 30, 22, 18, 22, 30],
-			// 				backgroundColor: gradientPrevWeek,
-			// 				borderColor: 'transparent',
-			// 				pointBackgroundColor: '#FFFFFF',
-			// 				pointBorderColor: '#FFFFFF',
-			// 				lineTension: 0.40,
-			// 			},
-			// 			{
-			// 				label: 'Direct',
-			// 				data: [20, 22, 30, 22, 18, 22, 30],
-			// 				backgroundColor: gradientPrevWeek,
-			// 				borderColor: 'transparent',
-			// 				pointBackgroundColor: '#FFFFFF',
-			// 				pointBorderColor: '#FFFFFF',
-			// 				lineTension: 0.40,
-			// 			},
-			// 			{
-			// 				label: 'Referral',
-			// 				data: [20, 22, 30, 22, 18, 22, 30],
-			// 				backgroundColor: gradientPrevWeek,
-			// 				borderColor: 'transparent',
-			// 				pointBackgroundColor: '#FFFFFF',
-			// 				pointBorderColor: '#FFFFFF',
-			// 				lineTension: 0.40,
-			// 			},
-			// 			{
-			// 				label: 'khác',
-			// 				data: [20, 22, 30, 22, 18, 22, 30],
-			// 				backgroundColor: gradientPrevWeek,
-			// 				borderColor: 'transparent',
-			// 				pointBackgroundColor: '#FFFFFF',
-			// 				pointBorderColor: '#FFFFFF',
-			// 				lineTension: 0.40,
-			// 			}
-			// 		]
-			// 	},
-			// 	options: {
-			// 		elements: {
-			// 			point: {
-			// 				radius: 0,
-			// 				hitRadius: 5,
-			// 				hoverRadius: 5
-			// 			}
-			// 		},
-			// 		legend: {
-			// 			display: false,
-			// 		},
-			// 		scales: {
-			// 			xAxes: [{
-			// 				display: false,
-			// 			}],
-			// 			yAxes: [{
-			// 				display: false,
-			// 				ticks: {
-			// 					beginAtZero: true,
-			// 				},
-			// 			}]
-			// 		}
-			// 	},
-			// 	plugins: [multiply],
-			// };
+		function initChartReport1() {			
 			var options = {
 				chart: {
 					height: 350,
@@ -274,95 +193,125 @@ export class MainComponent implements OnInit {
 		}
 			function initChartReport2 (){
 				var ctx = <HTMLCanvasElement>document.getElementById("chartReport2");
-				if (ctx) {
-					ctx.height = 350;
-					var myChart = new Chart(ctx, {
-					type: 'line',
-					data: {
-						labels: ["4/1", "5/1", "6/1", "7/1", "8/1", "9/1", "10/1"],
-						type: 'line',
-						defaultFontFamily: 'Poppins',
-						datasets: [{
-						label: "Nam",
-						data: [0, 30, 10, 120, 50, 63, 10],
-						backgroundColor: 'transparent',
-						borderColor: '#222222',
-						borderWidth: 2,
-						pointStyle: 'circle',
-						pointRadius: 3,
-						pointBorderColor: 'transparent',
-						pointBackgroundColor: '#222222',
-						}, {
-						label: "Nữ",
-						data: [0, 50, 40, 80, 40, 79, 120],
-						backgroundColor: 'transparent',
-						borderColor: '#f96332',
-						borderWidth: 2,
-						pointStyle: 'circle',
-						pointRadius: 3,
-						pointBorderColor: 'transparent',
-						pointBackgroundColor: '#f96332',
-						}]
-					},
-					options: {
-						responsive: true,
-						tooltips: {
-						mode: 'index',
-						titleFontSize: 12,
-						titleFontColor: '#000',
-						bodyFontColor: '#000',
-						backgroundColor: '#fff',
-						titleFontFamily: 'Poppins',
-						bodyFontFamily: 'Poppins',
-						cornerRadius: 3,
-						intersect: false,
-						},
-						legend: {
-						display: false,
-						labels: {
-							usePointStyle: true,
-							fontFamily: 'Poppins',
-						},
-						},
-						scales: {
-						xAxes: [{
-							display: true,
-							gridLines: {
-							display: false,
-							drawBorder: false
-							},
-							scaleLabel: {
-							display: false,
-							labelString: 'Month'
-							},
-							ticks: {
-							fontFamily: "Poppins"
-							}
-						}],
-						yAxes: [{
-							display: true,
-							gridLines: {
-							display: false,
-							drawBorder: false
-							},
-							scaleLabel: {
-							display: true,
-							labelString: 'Số lượng',
-							fontFamily: "Poppins"
+				$.get("https://api.fionamedia.net/api/reports", function(data, status){
+								
+					
+					const femaleArr = [];
+					const maleArr = [];
+					const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-							},
-							ticks: {
-							fontFamily: "Poppins"
-							}
-						}]
-						},
-						title: {
-						display: false,
-						text: 'Normal Legend'
-						}
-					}
+					const ageArr = data.filter(report => {	
+						const date = report.time.substring(0,2)			
+						const month = report.time.substring(3,5)									
+						const year = report.time.substring(6,10)							
+						const day = new Date(month + "/" + date + "/" + year).getDay();	
+											
+						return report.time =  days[day];
+					})			
+					
+					days.forEach(element => {
+						let totalMale = ageArr.filter(age => {
+						   return age.time == element && age.gender == 'Male';
+						})
+						maleArr.push(totalMale.length)
+						
+						let totalFemale = ageArr.filter(age => {
+							return age.time == element && age.gender == 'Female';
+						 })
+						 femaleArr.push(totalFemale.length)
 					});
-				}
+					
+					if (ctx) {
+						ctx.height = 350;
+						var myChart = new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+							type: 'line',
+							defaultFontFamily: 'Poppins',
+							datasets: [{
+							label: "Nam",
+							data: maleArr,
+							backgroundColor: 'transparent',
+							borderColor: '#222222',
+							borderWidth: 2,
+							pointStyle: 'circle',
+							pointRadius: 3,
+							pointBorderColor: 'transparent',
+							pointBackgroundColor: '#222222',
+							}, {
+							label: "Nữ",
+							data: femaleArr,
+							backgroundColor: 'transparent',
+							borderColor: '#f96332',
+							borderWidth: 2,
+							pointStyle: 'circle',
+							pointRadius: 3,
+							pointBorderColor: 'transparent',
+							pointBackgroundColor: '#f96332',
+							}]
+						},
+						options: {
+							responsive: true,
+							tooltips: {
+							mode: 'index',
+							titleFontSize: 12,
+							titleFontColor: '#000',
+							bodyFontColor: '#000',
+							backgroundColor: '#fff',
+							titleFontFamily: 'Poppins',
+							bodyFontFamily: 'Poppins',
+							cornerRadius: 3,
+							intersect: false,
+							},
+							legend: {
+							display: false,
+							labels: {
+								usePointStyle: true,
+								fontFamily: 'Poppins',
+							},
+							},
+							scales: {
+							xAxes: [{
+								display: true,
+								gridLines: {
+								display: false,
+								drawBorder: false
+								},
+								scaleLabel: {
+								display: false,
+								labelString: 'Month'
+								},
+								ticks: {
+								fontFamily: "Poppins"
+								}
+							}],
+							yAxes: [{
+								display: true,
+								gridLines: {
+								display: false,
+								drawBorder: false
+								},
+								scaleLabel: {
+								display: true,
+								labelString: 'Số lượng',
+								fontFamily: "Poppins"
+	
+								},
+								ticks: {
+								fontFamily: "Poppins"
+								}
+							}]
+							},
+							title: {
+							display: false,
+							text: 'Normal Legend'
+							}
+						}
+						});
+					}	
+				});
+				
 			}
 		function initSparkline() {
 			$(".sparkline").each(function () {
