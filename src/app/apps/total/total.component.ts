@@ -50,6 +50,7 @@ export class TotalComponent implements OnInit {
           var table = $("#tableHistory").empty();
           var thead = $("<thead></thead>");
           var tbtr = $("<tr></tr>");
+          tbtr.append("<th>Index</th>");
           tbtr.append("<th>Age</th>");
           tbtr.append("<th>Gender</th>");
           tbtr.append("<th>Time</th>");
@@ -59,6 +60,7 @@ export class TotalComponent implements OnInit {
           for (let index = 0; index < 5; index++) {
             const element = bxh[index];
             var tbRow = $("<tr>");
+            tbRow.append("<td>" + index + "</td>");
             tbRow.append("<td>" + element.age + "</td>");
             tbRow.append("<td>" + element.gender + "</td>");
             tbRow.append("<td>" + element.time + "</td>");

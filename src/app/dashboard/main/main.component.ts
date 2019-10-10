@@ -106,7 +106,7 @@ export class MainComponent implements OnInit {
 			// We could use setInterval instead, but I prefer to do it this way
 			setTimeout(mdraw, mrefreshinterval);
 		}
-		function initChartReport1() {			
+		function initChartReport1() {
 			var options = {
 				chart: {
 					height: 350,
@@ -124,9 +124,9 @@ export class MainComponent implements OnInit {
 					intersect: true,
 				},
 				colors: [
-					'#3467D6','#4285F4','#4285F4','#90A4F7','#A0C2F9'
+					'#3467D6', '#4285F4', '#4285F4', '#90A4F7', '#A0C2F9'
 				],
-				
+
 				responsive: [{
 					breakpoint: 480,
 					options: {
@@ -139,7 +139,7 @@ export class MainComponent implements OnInit {
 				}],
 				dataLabels: {
 					enabled: true
-				  },
+				},
 				plotOptions: {
 					bar: {
 						horizontal: false,
@@ -162,7 +162,7 @@ export class MainComponent implements OnInit {
 				}],
 				xaxis: {
 					type: 'Khác',
-					categories: ['19','20','21','22','23','24'],
+					categories: ['19', '20', '21', '22', '23', '24'],
 					labels: {
 						style: {
 							colors: '#9aa0ac',
@@ -175,7 +175,7 @@ export class MainComponent implements OnInit {
 							color: '#9aa0ac',
 						}
 					}
-	
+
 				},
 				legend: {
 					position: 'bottom',
@@ -191,128 +191,228 @@ export class MainComponent implements OnInit {
 			);
 			chart.render()
 		}
-			function initChartReport2 (){
-				var ctx = <HTMLCanvasElement>document.getElementById("chartReport2");
-				$.get("https://api.fionamedia.net/api/reports", function(data, status){
-								
-					
-					const femaleArr = [];
-					const maleArr = [];
-					const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		function initChartReport2() {
+			var ctx = <HTMLCanvasElement>document.getElementById("chartReport2");
+			$.get("https://api.fionamedia.net/api/reports", function (data, status) {
+				let level1 = 0;
+				let level2 = 0;
+				let level3 = 0;
+				let level4 = 0;
+				let level5 = 0;
+				let level6 = 0;
+				let level7 = 0;
+				let level8 = 0;
+				let level9 = 0;
+				const levelAgeArr = [
+					"15-18",
+					"19-21",
+					"22-25",
+					"26-30",
+					"31-35",
+					"36-40",
+					"40-45",
+					"46-50",
+					"Over 50"
+				  ]
+				const ageLevelArr = data.map(report => {
+					return report.age;
+				});
 
-					const ageArr = data.filter(report => {	
-						const date = report.time.substring(0,2)			
-						const month = report.time.substring(3,5)									
-						const year = report.time.substring(6,10)							
-						const day = new Date(month + "/" + date + "/" + year).getDay();	
-											
-						return report.time =  days[day];
-					})			
-					
-					days.forEach(element => {
-						let totalMale = ageArr.filter(age => {
-						   return age.time == element && age.gender == 'Male';
-						})
-						maleArr.push(totalMale.length)
-						
-						let totalFemale = ageArr.filter(age => {
-							return age.time == element && age.gender == 'Female';
-						 })
-						 femaleArr.push(totalFemale.length)
-					});
-					
-					if (ctx) {
-						ctx.height = 350;
-						var myChart = new Chart(ctx, {
+				ageLevelArr.forEach(element => {
+					if (parseInt(element) >= 15 && parseInt(element) <= 18) {
+						level1 = level1 + 1;
+					}
+					if (parseInt(element) >= 19 && parseInt(element) <= 21) {
+						level2 = level2 + 1;
+					}
+					if (parseInt(element) >= 22 && parseInt(element) <= 25) {
+						level3 = level3 + 1;
+					}
+					if (parseInt(element) >= 26 && parseInt(element) <= 30) {
+						level4 = level4 + 1;
+					}
+					if (parseInt(element) >= 31 && parseInt(element) <= 35) {
+						level5 = level5 + 1;
+					}
+					if (parseInt(element) >= 36 && parseInt(element) <= 40) {
+						level6 = level6 + 1;
+					}
+					if (parseInt(element) >= 40 && parseInt(element) <= 45) {
+						level7 = level7 + 1;
+					}
+					if (parseInt(element) >= 46 && parseInt(element) <= 50) {
+						level8 = level8 + 1;
+					}
+					if (parseInt(element) >= 50) {
+						level9 = level9 + 1;
+					}
+				});
+
+				let maxAge = level1;
+				let textLevelAge = levelAgeArr[0];
+				if (maxAge < level2) {
+					maxAge = level2
+					textLevelAge = levelAgeArr[1];
+				}
+				if (maxAge < level3) {
+					maxAge = level3
+					textLevelAge = levelAgeArr[2];
+				}
+				if (maxAge < level4) {
+					maxAge = level4
+					textLevelAge = levelAgeArr[3];
+				}
+				if (maxAge < level5) {
+					maxAge = level5
+					textLevelAge = levelAgeArr[4];
+				}
+				if (maxAge < level6) {
+					maxAge = level6
+					textLevelAge = levelAgeArr[5];
+				}
+				if (maxAge < level7) {
+					maxAge = level7
+					textLevelAge = levelAgeArr[6];
+				}
+				if (maxAge < level8) {
+					maxAge = level8
+					textLevelAge = levelAgeArr[7];
+				}
+				if (maxAge < level9) {
+					maxAge = level9
+					textLevelAge = levelAgeArr[8];
+				}
+
+				$("#totalCustomer").text(data.length)
+				$("#levelAge").text(textLevelAge);
+				const femaleArr = [];
+				const maleArr = [];
+				const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+				const ageArr = data.filter(report => {
+					const date = report.time.substring(0, 2)
+					const month = report.time.substring(3, 5)
+					const year = report.time.substring(6, 10)
+					const day = new Date(month + "/" + date + "/" + year).getDay();
+
+					return report.time = days[day];
+				})
+
+				days.forEach(element => {
+					let totalMale = ageArr.filter(age => {
+						return age.time == element && age.gender == 'Male';
+					})
+					maleArr.push(totalMale.length)
+
+					let totalFemale = ageArr.filter(age => {
+						return age.time == element && age.gender == 'Female';
+					})
+					femaleArr.push(totalFemale.length)
+				});
+
+				if (ctx) {
+					ctx.height = 350;
+					var myChart = new Chart(ctx, {
 						type: 'line',
 						data: {
-							labels: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+							labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 							type: 'line',
 							defaultFontFamily: 'Poppins',
 							datasets: [{
-							label: "Nam",
-							data: maleArr,
-							backgroundColor: 'transparent',
-							borderColor: '#222222',
-							borderWidth: 2,
-							pointStyle: 'circle',
-							pointRadius: 3,
-							pointBorderColor: 'transparent',
-							pointBackgroundColor: '#222222',
+								label: "Nam",
+								data: maleArr,
+								backgroundColor: 'transparent',
+								borderColor: '#222222',
+								borderWidth: 2,
+								pointStyle: 'circle',
+								pointRadius: 3,
+								pointBorderColor: 'transparent',
+								pointBackgroundColor: '#222222',
 							}, {
-							label: "Nữ",
-							data: femaleArr,
-							backgroundColor: 'transparent',
-							borderColor: '#f96332',
-							borderWidth: 2,
-							pointStyle: 'circle',
-							pointRadius: 3,
-							pointBorderColor: 'transparent',
-							pointBackgroundColor: '#f96332',
+								label: "Nữ",
+								data: femaleArr,
+								backgroundColor: 'transparent',
+								borderColor: '#f96332',
+								borderWidth: 2,
+								pointStyle: 'circle',
+								pointRadius: 3,
+								pointBorderColor: 'transparent',
+								pointBackgroundColor: '#f96332',
 							}]
 						},
 						options: {
 							responsive: true,
 							tooltips: {
-							mode: 'index',
-							titleFontSize: 12,
-							titleFontColor: '#000',
-							bodyFontColor: '#000',
-							backgroundColor: '#fff',
-							titleFontFamily: 'Poppins',
-							bodyFontFamily: 'Poppins',
-							cornerRadius: 3,
-							intersect: false,
+								mode: 'index',
+								titleFontSize: 12,
+								titleFontColor: '#000',
+								bodyFontColor: '#000',
+								backgroundColor: '#fff',
+								titleFontFamily: 'Poppins',
+								bodyFontFamily: 'Poppins',
+								cornerRadius: 3,
+								intersect: false,
 							},
 							legend: {
-							display: false,
-							labels: {
-								usePointStyle: true,
-								fontFamily: 'Poppins',
-							},
+								display: false,
+								labels: {
+									usePointStyle: true,
+									fontFamily: 'Poppins',
+								},
 							},
 							scales: {
-							xAxes: [{
-								display: true,
-								gridLines: {
-								display: false,
-								drawBorder: false
-								},
-								scaleLabel: {
-								display: false,
-								labelString: 'Month'
-								},
-								ticks: {
-								fontFamily: "Poppins"
-								}
-							}],
-							yAxes: [{
-								display: true,
-								gridLines: {
-								display: false,
-								drawBorder: false
-								},
-								scaleLabel: {
-								display: true,
-								labelString: 'Số lượng',
-								fontFamily: "Poppins"
-	
-								},
-								ticks: {
-								fontFamily: "Poppins"
-								}
-							}]
+								xAxes: [{
+									display: true,
+									gridLines: {
+										display: false,
+										drawBorder: false
+									},
+									scaleLabel: {
+										display: false,
+										labelString: 'Month'
+									},
+									ticks: {
+										fontFamily: "Poppins"
+									}
+								}],
+								yAxes: [{
+									display: true,
+									gridLines: {
+										display: false,
+										drawBorder: false
+									},
+									scaleLabel: {
+										display: true,
+										labelString: 'Số lượng',
+										fontFamily: "Poppins"
+
+									},
+									ticks: {
+										fontFamily: "Poppins"
+									}
+								}]
 							},
 							title: {
-							display: false,
-							text: 'Normal Legend'
+								display: false,
+								text: 'Normal Legend'
 							}
 						}
-						});
-					}	
-				});
-				
-			}
+					});
+				}
+			});
+
+		}
+		let oldLength = 0;
+		let newLength = 0;
+		setInterval(function(){
+			$.get("https://api.fionamedia.net/api/reports", function (data, status) {
+				if(data.length !== oldLength){
+					newLength = data.length - oldLength;
+				}
+				$("#quantityCustomer").text(newLength)
+				oldLength = data.length;
+			})
+		},2000)
 		function initSparkline() {
 			$(".sparkline").each(function () {
 				var $this = $(this);
